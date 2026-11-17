@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -9,6 +10,7 @@ pipeline {
     }
 
     stages {
+
         stage('Backend Tests and Lint') {
             steps {
                 dir('backend') {
@@ -50,10 +52,12 @@ pipeline {
         stage('Trivy Security Scan') {
             steps {
                 sh '''
-                    trivy image --exit-code 1 --severity CRITICAL \
+                    trivy image --scanners vuln --timeout 10m \
+                      --exit-code 1 --severity CRITICAL \
                       ${REGISTRY_PREFIX}-backend:${IMAGE_TAG}
 
-                    trivy image --exit-code 1 --severity CRITICAL \
+                    trivy image --scanners vuln --timeout 10m \
+                      --exit-code 1 --severity CRITICAL \
                       ${REGISTRY_PREFIX}-frontend:${IMAGE_TAG}
                 '''
             }
@@ -116,3 +120,4 @@ pipeline {
         }
     }
 }
+
