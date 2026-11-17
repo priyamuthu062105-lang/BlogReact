@@ -9,13 +9,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/Vennilavanguvi/BlogReact.git'
-            }
-        }
-
         stage('Backend Tests and Lint') {
             steps {
                 dir('backend') {
