@@ -11,6 +11,8 @@ const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/posts');
 
 const app = express();
+// Trust the frontend Nginx reverse proxy
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 5000;
 
 // --- Prometheus metrics ---
